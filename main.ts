@@ -1,18 +1,21 @@
 controller.player2.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Pressed, function () {
-    blue_Toad.vy += -200
+    Toad.vy += -200
 })
 controller.player1.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Pressed, function () {
     Luigi.vy += -200
 })
+controller.player1.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Repeated, function () {
+    Luigi.vy += -150
+})
 scene.onOverlapTile(SpriteKind.Player, assets.tile`g`, function (sprite, location) {
-    if (Luigi.overlapsWith(blue_Toad)) {
+    if (Luigi.overlapsWith(Toad)) {
         game.gameOver(true)
     }
 })
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.collectibleRedCrystal, function (sprite, location) {
     game.gameOver(false)
 })
-let blue_Toad: Sprite = null
+let Toad: Sprite = null
 let Luigi: Sprite = null
 tiles.setCurrentTilemap(tilemap`level1`)
 scene.setBackgroundImage(img`
@@ -138,11 +141,11 @@ scene.setBackgroundImage(img`
     7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
     `)
 Luigi = sprites.create(assets.image`Luigi`, SpriteKind.Player)
-blue_Toad = sprites.create(assets.image`blue Toad`, SpriteKind.Player)
+Toad = sprites.create(assets.image`Toad`, SpriteKind.Player)
 controller.player1.moveSprite(Luigi, 100, 0)
-controller.player2.moveSprite(blue_Toad, 100, 0)
+controller.player2.moveSprite(Toad, 150, 0)
 Luigi.ay = 500
-blue_Toad.ay = 500
+Toad.ay = 500
 animation.runImageAnimation(
 Luigi,
 assets.animation`animLuigi`,
@@ -150,7 +153,7 @@ assets.animation`animLuigi`,
 true
 )
 animation.runImageAnimation(
-blue_Toad,
+Toad,
 assets.animation`blue Toad`,
 180,
 true
